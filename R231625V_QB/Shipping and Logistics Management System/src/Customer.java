@@ -9,10 +9,17 @@ public abstract class Customer {
     private List<ShipmentDetails> shipmentList;
 
     public Customer(String customerId, String fullName, String contactInfo) {
+        validateContactInfo(contactInfo);
         this.customerId = customerId;
         this.fullName = fullName;
         this.contactInfo = contactInfo;
         this.shipmentList = new ArrayList<>();
+    }
+
+    private void validateContactInfo(String contactInfo) {
+        if (contactInfo == null || !contactInfo.matches("\\d{10}")) {
+            throw new IllegalArgumentException("Contact info must be exactly 10 digits");
+        }
     }
 
     public void addShipment(ShipmentDetails shipmentDetails) {
@@ -41,5 +48,14 @@ public abstract class Customer {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        validateContactInfo(contactInfo);
+        this.contactInfo = contactInfo;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

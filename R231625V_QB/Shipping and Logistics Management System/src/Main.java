@@ -89,8 +89,15 @@ public class Main {
     private static void addCustomer(Scanner scanner) {
         System.out.print("Enter Full Name: ");
         String fullName = scanner.nextLine();
-        System.out.print("Enter Contact Info: ");
+        System.out.print("Enter Contact Info (10 digits): ");
         String contactInfo = scanner.nextLine();
+
+        // Validate contact info before proceeding
+        if (!contactInfo.matches("\\d{10}")) {
+            System.out.println("Error: Contact info must be exactly 10 digits. Please try again.");
+            return;
+        }
+
         System.out.print("Is this a corporate customer? (yes/no): ");
         String type = scanner.nextLine();
 
@@ -111,6 +118,8 @@ public class Main {
                 customerList.add(individualCustomer);
                 System.out.println("Success: Individual customer added with ID: " + customerId + " (DB ID: " + individualCustomer.getId() + ")");
             }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Validation Error: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Error adding customer to database: " + e.getMessage());
         }
@@ -151,20 +160,25 @@ public class Main {
             System.out.print("Enter new Full Name (or press Enter to keep current): ");
             String newName = scanner.nextLine();
             if (!newName.trim().isEmpty()) {
-                // Update would require modifying Customer class setters
-                System.out.println("Note: Name update requires setter methods in Customer class");
+                customer.setFullName(newName);
             }
 
             System.out.println("Current Contact: " + customer.getContactInfo());
-            System.out.print("Enter new Contact Info (or press Enter to keep current): ");
+            System.out.print("Enter new Contact Info (10 digits, or press Enter to keep current): ");
             String newContact = scanner.nextLine();
             if (!newContact.trim().isEmpty()) {
-                // Update would require modifying Customer class setters
-                System.out.println("Note: Contact update requires setter methods in Customer class");
+                if (!newContact.matches("\\d{10}")) {
+                    System.out.println("Error: Contact info must be exactly 10 digits. Update cancelled.");
+                    return;
+                }
+                customer.setContactInfo(newContact);
             }
 
-            System.out.println("Customer update functionality requires setter methods in Customer class.");
+            customerDAO.updateCustomer(customer);
+            System.out.println("Success: Customer updated with ID: " + customerId);
 
+        } catch (IllegalArgumentException e) {
+            System.out.println("Validation Error: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Error updating customer: " + e.getMessage());
         }
