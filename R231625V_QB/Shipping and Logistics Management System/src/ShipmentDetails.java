@@ -1,4 +1,5 @@
 public class ShipmentDetails {
+    private int id; // auto-generated database ID
     private String shipmentId;
     private String itemDescription;
     private int itemCount;
@@ -14,8 +15,8 @@ public class ShipmentDetails {
         this.itemCount = itemCount;
         this.origin = origin;
         this.destination = destination;
-        this.currentStatus = "pending";
         this.customer = customer;
+        this.currentStatus = "requested";
     }
 
     public String getShipmentId() {
@@ -56,5 +57,13 @@ public class ShipmentDetails {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

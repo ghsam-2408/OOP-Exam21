@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Customer {
+    private int id; // auto-generated database ID
     private String customerId;
     private String fullName;
     private String contactInfo;
@@ -32,5 +33,13 @@ public abstract class Customer {
 
     public String getContactInfo() {
         return contactInfo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

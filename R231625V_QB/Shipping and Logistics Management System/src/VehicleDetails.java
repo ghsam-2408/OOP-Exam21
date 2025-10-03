@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class VehicleDetails {
+    private int id; // auto-generated database ID
     private String vehicleId;
     private String vehicleModel;
     private double capacity;
@@ -35,6 +36,14 @@ public abstract class VehicleDetails {
 
     public String getVehicleId() {
         return vehicleId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getVehicleModel() {
